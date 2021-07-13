@@ -2,11 +2,11 @@
 	import { createEventDispatcher, onMount } from "svelte";
 
 	const digitCount = 2
-	const defaultTime = 5000 //? In seconds
+	const defaultTime = 5 //? In seconds
 
-	export let totalTime = defaultTime
+	export let length = defaultTime
 	let currentTime = defaultTime
-	$: { currentTime = totalTime }
+	$: { currentTime = length }
 
 	export let active = -1
 
@@ -41,7 +41,7 @@
 	const clock = setInterval(() => {
 		if (active > 0 && currentTime > 0) currentTime -= 1
 		if (currentTime === 0) {
-			currentTime = totalTime
+			currentTime = length
 			dispatch('finish')
 		}
 	}, 1000)

@@ -1,15 +1,17 @@
 <script lang="ts">
-	import Button from './Button.svelte'
+	import Button from './ControlButton.svelte'
 	import Clock from './Clock.svelte'
 	import Title from './Title.svelte'
 
 	export let name: string
+	export let length: number
 	let active = -1
 </script>
 
 <div>
 	<Clock
 		{active}
+		{length}
 		on:finish={() => {
 			active = -1
 		}}
