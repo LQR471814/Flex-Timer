@@ -35,9 +35,20 @@
 </main>
 
 <style>
-	:root {
-		/* --background: #A98467; */
+	:global(:root) {
 		--background: #9e9e9e;
+		--card-background: #cfcfcf;
+		--button-background: #fff;
+
+		--accent: #181818;
+	}
+
+	:global(.svg-fill-btn-background) {
+		fill: var(--button-background)
+	}
+
+	:global(.svg-fill-accent) {
+		fill: var(--accent)
 	}
 
 	main {

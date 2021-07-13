@@ -32,8 +32,7 @@
 		height: 230px;
 		width: 270px;
 
-		/* background-color: #ADC178; */
-		background-color: #cfcfcf;
+		background-color: var(--card-background);
 		border-radius: 20px;
 		box-shadow: 0px 6px 17px -2px rgba(0, 0, 0, 0.637);
 
