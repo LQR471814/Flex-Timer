@@ -17,6 +17,11 @@
 </div>
 
 <style>
+	div {
+		width: 60px;
+		height: 60px;
+	}
+
 	.timer-control-container {
 		display: flex;
 		height: 100%;

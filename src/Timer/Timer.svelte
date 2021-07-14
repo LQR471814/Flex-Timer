@@ -30,7 +30,7 @@
 		flex-direction: column;
 
 		height: 230px;
-		width: 270px;
+		width: 260px;
 
 		background-color: var(--card-background);
 		border-radius: 20px;

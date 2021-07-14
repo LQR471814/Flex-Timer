@@ -1,6 +1,7 @@
 <script lang="ts">
 	import PlusButton from './PlusButton.svelte';
 	import Timer from './Timer/Timer.svelte'
+	import Close from './Close.svelte'
 
 	let defaultTimerNumber = 0
 
@@ -9,23 +10,40 @@
 		length: number
 	}
 
-	const addDefaultTimer = () => {
-		defaultTimerNumber++
-		timers = [...timers, {
-			name: `Timer ${defaultTimerNumber}`,
-			length: 60
-		}]
+	let currentID = 0
+	const generateID = (prefix: string) => {
+		currentID++
+		return `${prefix}_${currentID}`
 	}
 
-	let timers: Timer[] = []
+	const addDefaultTimer = () => {
+		defaultTimerNumber++
+
+		const newTimers = {...timers}
+		newTimers[generateID('Timer')] = {
+			name: `Timer ${defaultTimerNumber}`,
+			length: 60
+		}
+
+		timers = newTimers
+	}
+
+	let timers: {
+		[key: string]: Timer
+	} = {}
 	addDefaultTimer()
 </script>
 
 <main>
 	<div class="timer-list-container">
-		{#each timers as timer}
+		{#each Object.keys(timers) as timer}
 			<div class="timer-margin">
-				<Timer {...timer} />
+				<Timer {...timers[timer]} />
+				<Close id={timer} on:click={(e) => {
+					const newTimers = {...timers}
+					delete newTimers[e.detail]
+					timers = newTimers
+				}} />
 			</div>
 		{/each}
 		<PlusButton on:click={() => {
@@ -41,6 +59,10 @@
 		--button-background: #fff;
 
 		--accent: #181818;
+	}
+
+	:global(.svg-fill-transparent) {
+		fill: transparent;
 	}
 
 	:global(.svg-fill-btn-background) {
@@ -66,5 +88,8 @@
 
 	.timer-margin {
 		margin: 10px;
+
+		/* To make position absolute in child work properly */
+		position: relative;
 	}
 </style>

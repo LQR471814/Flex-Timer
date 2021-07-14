@@ -1,40 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 270 407.65">
+<script lang='ts'>
+	export let style = ""
+</script>
+
+<svg {style} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 271 303">
 	<g id="Body">
-		<path class="cls-1" d="M68,398.15a6.67,6.67,0,0,1-6.58-5.56l-49-286.93A6.68,6.68,0,0,1,19,97.85H252.31a6.68,6.68,0,0,1,6.58,7.81L210,392.59a6.67,6.67,0,0,1-6.59,5.56Z" transform="translate(-0.5 -0.5)"/>
-		<path class="cls-2" d="M248.38,107.85l-47.81,280.3H70.83L23,107.85H248.38m3.93-20H19A16.68,16.68,0,0,0,2.57,107.34l49,286.94A16.69,16.69,0,0,0,68,408.15H203.37a16.67,16.67,0,0,0,16.44-13.88l48.94-286.93a16.68,16.68,0,0,0-16.44-19.49Z" transform="translate(-0.5 -0.5)"/>
+		<path class="svg-fill-transparent" d="M68,293c-3.86,0-6.25-1.44-6.82-2.07L12.55,99.6A11,11,0,0,1,19,97.85H252.31a11,11,0,0,1,6.46,1.75L210.2,290.93c-.58.63-3,2.07-6.83,2.07Z" transform="translate(0 0)"/>
+		<path class="svg-fill-accent" d="M246.36,107.85,201.89,283H69.51L25,107.85H246.36M17.92,108h0M252.31,87.85H19C8.68,87.85.83,94.1,2.57,100.94l49,192.74C53,299.06,59.91,303,68,303H203.37c8.13,0,15.08-3.94,16.44-9.32l48.94-192.74c1.74-6.84-6.11-13.09-16.44-13.09Z" transform="translate(0 0)"/>
 	</g>
 	<g id="Lines">
-		<line class="cls-3" x1="192.73" y1="155.12" x2="178.22" y2="339.88" />
-		<line class="cls-3" x1="136" y1="155" x2="137" y2="340"/>
-		<line class="cls-3" x1="78.27" y1="155.12" x2="95" y2="340" />
+		<line class="trash-stroke" x1="193.22" y1="146.91" x2="177.56" y2="246.5"/>
+		<line class="trash-stroke" x1="136.5" y1="147.2" x2="136.35" y2="246.81"/>
+		<line class="trash-stroke" x1="78.77" y1="147.62" x2="94.35" y2="247.07"/>
 	</g>
 	<g id="Lid">
-		<path class="cls-4" d="M33.5,43.5h203a24,24,0,0,1,24,24v14a6,6,0,0,1-6,6H15.5a6,6,0,0,1-6-6v-14a24,24,0,0,1,24-24Z"/>
-		<rect class="cls-4" x="99.5" y="9.5" width="72" height="34" rx="12" />
+		<path class="trash-stroke" d="M34,44H237a24,24,0,0,1,24,24V82a6,6,0,0,1-6,6H16a6,6,0,0,1-6-6V68A24,24,0,0,1,34,44Z"/>
+		<rect class="trash-stroke" x="100" y="10" width="72" height="34" rx="12"/>
 	</g>
 </svg>
 
 <style>
 	svg {
-		transform: scale(0.5);
+		width: 100%;
+		height: 100%;
 	}
 
-	.cls-1 {
-		fill: var(--background);
-	}
-	.cls-2 {
-		fill: var(--accent);
-	}
-	.cls-3, .cls-4 {
+	.trash-stroke {
 		fill: none;
+
+		stroke-width: 20px;
 		stroke: var(--accent);
 		stroke-linecap: round;
 		stroke-linejoin: round;
-	}
-	.cls-3 {
-		stroke-width: 20px;
-	}
-	.cls-4 {
-		stroke-width: 19px;
 	}
 </style>
