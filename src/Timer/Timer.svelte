@@ -3,7 +3,7 @@
 	import Clock from './Clock.svelte'
 	import Title from './Title.svelte'
 
-	import { controlTimer, decrementTimer, state } from '../State/StateStore';
+	import { controlTimer, decrementTimer, editTimerTitle, state } from '../State/StateStore';
 	import { onMount } from 'svelte';
 
 	export let id: string
@@ -23,7 +23,9 @@
 <div>
 	<Clock {currentTime} />
 
-	<Title>{name}</Title>
+	<Title on:edit={(e) => {
+		state.update(state => editTimerTitle(state, id, e.detail))
+	}}>{name}</Title>
 
 	<Button {active} on:click={(e) => {
 		state.update(state => controlTimer(

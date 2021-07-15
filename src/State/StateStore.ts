@@ -16,6 +16,13 @@ export function addDefaultTimer(state: State) {
 	return newState
 }
 
+export function editTimerTitle(state: State, timerID: string, title: string) {
+	const newState = {...state}
+	newState.timers[timerID].name = title
+	console.log(newState)
+	return newState
+}
+
 export function removeTimer(state: State, timerID: string) {
 	const newState = {...state}
 	delete newState.timers[timerID]
