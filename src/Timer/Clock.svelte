@@ -1,17 +1,7 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from "svelte";
+	export let currentTime: number
 
 	const digitCount = 2
-	const defaultTime = 5 //? In seconds
-
-	export let length = defaultTime
-	let currentTime = defaultTime
-	$: { currentTime = length }
-
-	export let active = -1
-
-
-	const dispatch = createEventDispatcher()
 
 	const timeToString = (time: number) => {
 		const hours = Math.floor(time / 60**2)
@@ -37,16 +27,6 @@
 
 		return result
 	}
-
-	const clock = setInterval(() => {
-		if (active > 0 && currentTime > 0) currentTime -= 1
-		if (currentTime === 0) {
-			currentTime = length
-			dispatch('finish')
-		}
-	}, 1000)
-
-	onMount(() => () => clearInterval(clock))
 </script>
 
 <span>{timeToString(currentTime)}</span>

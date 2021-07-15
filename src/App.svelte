@@ -3,51 +3,31 @@
 	import Timer from './Timer/Timer.svelte'
 	import Close from './Close.svelte'
 
-	let defaultTimerNumber = 0
+	import {addDefaultTimer, state} from './State/StateStore'
 
-	type Timer = {
-		name: string
-		length: number
-	}
+	state.update(addDefaultTimer)
 
-	let currentID = 0
-	const generateID = (prefix: string) => {
-		currentID++
-		return `${prefix}_${currentID}`
-	}
-
-	const addDefaultTimer = () => {
-		defaultTimerNumber++
-
-		const newTimers = {...timers}
-		newTimers[generateID('Timer')] = {
-			name: `Timer ${defaultTimerNumber}`,
-			length: 60
-		}
-
-		timers = newTimers
-	}
-
-	let timers: {
-		[key: string]: Timer
-	} = {}
-	addDefaultTimer()
+	let timers
+	state.subscribe(val => {
+		timers = val.timers
+	})
 </script>
 
 <main>
 	<div class="timer-list-container">
 		{#each Object.keys(timers) as timer}
 			<div class="timer-margin">
-				<Timer {...timers[timer]} />
-				<Close id={timer} on:click={(e) => {
-					const newTimers = {...timers}
-					delete newTimers[e.detail]
-					timers = newTimers
-				}} />
+				<Timer
+					id={timer}
+					name={timers[timer].name}
+					active={timers[timer].active}
+					currentTime={timers[timer].currentTime}
+				/>
+				<Close id={timer} />
 			</div>
 		{/each}
 		<PlusButton on:click={() => {
-			addDefaultTimer()
+			state.update(addDefaultTimer)
 		}} />
 	</div>
 </main>

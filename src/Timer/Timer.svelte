@@ -3,22 +3,33 @@
 	import Clock from './Clock.svelte'
 	import Title from './Title.svelte'
 
+	import { controlTimer, decrementTimer, state } from '../State/StateStore';
+	import { onMount } from 'svelte';
+
+	export let id: string
+
 	export let name: string
-	export let length: number
-	let active = -1
+	export let active: number
+	export let currentTime: number
+
+	const clock = setInterval(() => {
+		if (active > 0)
+		state.update(state => decrementTimer(state, id))
+	}, 1000)
+
+	onMount(() => () => clearInterval(clock))
 </script>
 
 <div>
-	<Clock
-		{active}
-		{length}
-		on:finish={() => {
-			active = -1
-		}}
-	/>
+	<Clock {currentTime} />
+
 	<Title>{name}</Title>
+
 	<Button {active} on:click={(e) => {
-		active = e.detail.active
+		state.update(state => controlTimer(
+			state, id,
+			e.detail.active
+		))
 	}} />
 </div>
 

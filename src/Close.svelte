@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	import { removeTimer, state } from './State/StateStore';
 	import Trash from './svgs/TrashCan.svelte'
-
-	const dispatch = createEventDispatcher()
 
 	export let id: string = ""
 </script>
 
 <div
-	on:click={() => dispatch('click', id)}
+	on:click={() => state.update(
+		state => removeTimer(state, id)
+	)}
 	class="close-root"
 >
 	<Trash />
