@@ -1,7 +1,7 @@
 type Timer = {
 	name: string
 	length: number
-	currentTime: number
+	currentTime: Time
 	active: number
 }
 

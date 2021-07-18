@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from './ControlButton.svelte'
 	import Clock from './Clock.svelte'
-	import Title from './Title.svelte'
+	import Editable from '../Editable.svelte'
 
 	import { controlTimer, decrementTimer, editTimerTitle, state } from '../State/StateStore';
 	import { onMount } from 'svelte';
@@ -21,11 +21,13 @@
 </script>
 
 <div>
-	<Clock {currentTime} />
+	<Clock {active} {currentTime} />
 
-	<Title on:edit={(e) => {
+	<Editable on:edit={(e) => {
 		state.update(state => editTimerTitle(state, id, e.detail))
-	}}>{name}</Title>
+	}} disabled={active > 0} style="max-width: 70%;">
+		{name}
+	</Editable>
 
 	<Button {active} on:click={(e) => {
 		state.update(state => controlTimer(
