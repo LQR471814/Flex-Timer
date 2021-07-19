@@ -16,10 +16,27 @@ export function addDefaultTimer(state: State) {
 	return newState
 }
 
+export function editTimerLength(state: State, timerID: string, length: number) {
+	const newState = {...state}
+
+	const timer = newState.timers[timerID]
+
+	let givenLength = length
+	if (givenLength <= 0) {
+		givenLength = 1
+	}
+
+	if (timer.currentTime === timer.length)
+	timer.currentTime = givenLength
+
+	timer.length = givenLength
+
+	return newState
+}
+
 export function editTimerTitle(state: State, timerID: string, title: string) {
 	const newState = {...state}
 	newState.timers[timerID].name = title
-	console.log(newState)
 	return newState
 }
 

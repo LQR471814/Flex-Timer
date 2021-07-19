@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte'
 	import Editable from '../Editable.svelte'
 
 	/* State & Props */
@@ -6,14 +7,27 @@
 	export let active: number
 
 	let lengthEditDisabled = true
-	let renderedTime: string[] = []
+
+	let renderedTime: {
+		type: string
+		value: string
+	}[] = []
 
 	$: {
 		lengthEditDisabled = active > 0
-		renderedTime = secondsToTime(
+
+		const time = secondsToTime(
 			currentTime
 		).map(val => fitDigit(val, digitCount))
+
+		renderedTime = [
+			{ type: 'hour', value: time[0] },
+			{ type: 'minute', value: time[1] },
+			{ type: 'second', value: time[2] },
+		]
 	}
+
+	const dispatch = createEventDispatcher()
 
 	/* Data Handling */
 	const digitCount = 2
@@ -75,9 +89,32 @@
 			<span>:</span>
 		{:else}
 			<Editable
+				text={element.value}
+				number={true}
 				disabled={lengthEditDisabled}
 				style={editableStyle}
-			>{element}</Editable>
+				on:edit={(e) => {
+					const dispatchTime = []
+					for (const timeFragment of renderedTime) {
+						if (element.type === timeFragment.type) {
+							dispatchTime.push(e.detail)
+							continue
+						}
+						dispatchTime.push(parseInt(timeFragment.value))
+					}
+
+					console.log(dispatchTime)
+
+					dispatch(
+						'edit',
+						timeToSeconds(
+							dispatchTime[0],
+							dispatchTime[1],
+							dispatchTime[2]
+						)
+					)
+				}}
+			/>
 		{/if}
 	{/each}
 </div>

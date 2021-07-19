@@ -3,7 +3,7 @@
 	import Clock from './Clock.svelte'
 	import Editable from '../Editable.svelte'
 
-	import { controlTimer, decrementTimer, editTimerTitle, state } from '../State/StateStore';
+	import { controlTimer, decrementTimer, editTimerLength, editTimerTitle, state } from '../State/StateStore';
 	import { onMount } from 'svelte';
 
 	export let id: string
@@ -21,13 +21,19 @@
 </script>
 
 <div>
-	<Clock {active} {currentTime} />
+	<Clock {active} {currentTime} on:edit={(e) => {
+		state.update(state => editTimerLength(state, id, e.detail))
+	}} />
 
-	<Editable on:edit={(e) => {
-		state.update(state => editTimerTitle(state, id, e.detail))
-	}} disabled={active > 0} style="max-width: 70%;">
-		{name}
-	</Editable>
+	<Editable
+		text={name}
+		max={20}
+		on:edit={(e) => {
+			state.update(state => editTimerTitle(state, id, e.detail))
+		}}
+		disabled={active > 0}
+		style="max-width: 70%;"
+	/>
 
 	<Button {active} on:click={(e) => {
 		state.update(state => controlTimer(

@@ -2,6 +2,7 @@
 	import PlusButton from './PlusButton.svelte';
 	import Timer from './Timer/Timer.svelte'
 	import Close from './Close.svelte'
+	import { fly } from 'svelte/transition'
 
 	import {addDefaultTimer, state} from './State/StateStore'
 
@@ -9,6 +10,7 @@
 
 	let timers
 	state.subscribe(val => {
+		console.log(val)
 		timers = val.timers
 	})
 </script>
@@ -16,7 +18,7 @@
 <main>
 	<div class="timer-list-container">
 		{#each Object.keys(timers) as timer}
-			<div class="timer-margin">
+			<div class="timer-margin" transition:fly={{x: -100, y: 0}}>
 				<Timer
 					id={timer}
 					name={timers[timer].name}
