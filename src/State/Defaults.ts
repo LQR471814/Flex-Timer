@@ -1,19 +1,27 @@
-const ids: {
-	[key: string]: number
-} = {}
+function setID(val: State, prefix: string, value?: number) {
+	const newState = { ...val }
 
-export function generateID(prefix: string) {
-	if (!Object.keys(ids).includes(prefix)) {
-		ids[prefix] = 0
+	if (value) {
+		newState.ids[prefix] = value
+		return newState
 	}
 
-	ids[prefix]++
-	return `${prefix}_${ids[prefix]}`
+	if (!Object.keys(newState.ids).includes(prefix))
+	newState.ids[prefix] = 0
+
+	newState.ids[prefix]++
+	return newState
+}
+
+export function generateID(val: State, prefix: string) {
+	setID(val, prefix)
+	return `${prefix}_${val.ids[prefix]}`
 }
 
 export function defaultState(): State {
 	return {
-		timers: {}
+		timers: {},
+		ids: {}
 	}
 }
 

@@ -9,4 +9,7 @@ type State = {
 	timers: {
 		[key: string]: Timer
 	}
+	ids: {
+		[key: string]: number
+	}
 }

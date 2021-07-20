@@ -33,11 +33,11 @@
 	}
 
 	.plus-container:hover {
-		background-color: rgba(255, 255, 255, 0.158);
+		background-color: var(--button-hover-background);
 		cursor: pointer;
 	}
 	.plus-container:active {
-		background-color: rgba(255, 255, 255, 0.247);
-		border: 1px solid rgba(255, 255, 255, 0.637);
+		background-color: var(--button-active-background);
+		border: var(--button-active-border);
 	}
 </style>

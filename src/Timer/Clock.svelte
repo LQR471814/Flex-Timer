@@ -103,8 +103,6 @@
 						dispatchTime.push(parseInt(timeFragment.value))
 					}
 
-					console.log(dispatchTime)
-
 					dispatch(
 						'edit',
 						timeToSeconds(

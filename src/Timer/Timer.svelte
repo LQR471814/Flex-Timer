@@ -27,7 +27,6 @@
 
 	<Editable
 		text={name}
-		max={20}
 		on:edit={(e) => {
 			state.update(state => editTimerTitle(state, id, e.detail))
 		}}

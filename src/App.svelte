@@ -4,13 +4,11 @@
 	import Close from './Close.svelte'
 	import { fly } from 'svelte/transition'
 
-	import {addDefaultTimer, state} from './State/StateStore'
-
-	state.update(addDefaultTimer)
+	import { addDefaultTimer, state } from './State/StateStore'
+import ConfigButton from './ConfigButton.svelte';
 
 	let timers
 	state.subscribe(val => {
-		console.log(val)
 		timers = val.timers
 	})
 </script>
@@ -28,9 +26,12 @@
 				<Close id={timer} />
 			</div>
 		{/each}
+
 		<PlusButton on:click={() => {
 			state.update(addDefaultTimer)
 		}} />
+
+		<ConfigButton />
 	</div>
 </main>
 
@@ -38,7 +39,15 @@
 	:global(:root) {
 		--background: #9e9e9e;
 		--card-background: #cfcfcf;
-		--button-background: #fff;
+		--config-color: #dddddd;
+		--play-button-background: #fff;
+
+		--button-subtle-background: rgba(255, 255, 255, 0.096);
+		--button-hover-background: rgba(255, 255, 255, 0.158);
+		--button-active-background: rgba(255, 255, 255, 0.247);
+
+		--button-normal-border: 1px solid transparent;
+		--button-active-border: 1px solid rgba(255, 255, 255, 0.637);
 
 		--accent: #181818;
 	}
@@ -47,12 +56,22 @@
 		fill: transparent;
 	}
 
-	:global(.svg-fill-btn-background) {
-		fill: var(--button-background)
+	:global(.svg-fill-play-btn-background) {
+		fill: var(--play-button-background)
 	}
 
 	:global(.svg-fill-accent) {
 		fill: var(--accent)
+	}
+
+	:global(span) {
+		color: rgb(24, 24, 24);
+		font-family: 'Verdana', sans-serif;
+
+		font-size: 20px;
+
+		outline: none;
+		-webkit-user-select: none;
 	}
 
 	main {
