@@ -57,6 +57,7 @@ export function decrementTimer(val: State, timerID: string) {
 	if (timer.currentTime === 0) {
 		timer.active = -1
 		timer.currentTime = timer.length
+		return newState
 	}
 	timer.currentTime--
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import PlayButton from '../svgs/PlayButton.svelte'
+	import PlayButton from '../Svg/PlayButton.svelte'
 	import { createEventDispatcher } from "svelte";
 
 	export let active = -1

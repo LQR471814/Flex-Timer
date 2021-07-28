@@ -1,11 +1,11 @@
 <script lang="ts">
 	import PlusButton from './PlusButton.svelte';
-	import Timer from './Timer/Timer.svelte'
+	import Timer from '../Timer/Timer.svelte'
 	import Close from './Close.svelte'
 	import { fly } from 'svelte/transition'
 
-	import { addDefaultTimer, state } from './State/StateStore'
-import ConfigButton from './ConfigButton.svelte';
+	import { addDefaultTimer, state } from '../State/StateStore'
+	import ConfigButton from './ConfigButton.svelte';
 
 	let timers
 	state.subscribe(val => {

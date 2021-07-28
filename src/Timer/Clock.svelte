@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte'
-	import Editable from '../Editable.svelte'
+	import { numberOnly } from '../Common/Editable/hooks';
+
+	import Editable from '../Common/Editable/Editable.svelte'
 
 	/* State & Props */
 	export let currentTime: number
@@ -90,7 +92,7 @@
 		{:else}
 			<Editable
 				text={element.value}
-				number={true}
+				beforeEdit={numberOnly}
 				disabled={lengthEditDisabled}
 				style={editableStyle}
 				on:edit={(e) => {

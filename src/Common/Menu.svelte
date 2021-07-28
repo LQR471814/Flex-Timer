@@ -1,9 +1,8 @@
 <script lang="ts">
-	import type { SvelteComponent } from "svelte/internal";
 	import { fly } from 'svelte/transition'
 
 	type Item = {
-		icon?: SvelteComponent
+		icon?: any //? Should be of type "SvelteComponent" but typescript keeps yelling at me, check this thread for more info: https://github.com/sveltejs/language-tools/issues/486
 		text: string
 		callback: () => void
 	}
@@ -11,7 +10,7 @@
 	export let items: Item[] = []
 </script>
 
-<div class="menu-root" transition:fly={{y: 30}}>
+<div class="menu-root" transition:fly={{x: 30}}>
 	{#each items as item}
 		<div class="menu-item">
 			<div class="item-svg">

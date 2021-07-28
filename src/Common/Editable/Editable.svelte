@@ -3,30 +3,19 @@
 
 	const dispatch = createEventDispatcher()
 
-	const numberRe = new RegExp('^[0-9]+$')
-	const isNumber = (n: string) => {
-		return numberRe.test(n)
-	}
-
 	const onedit = () => {
 		const previousText = text
 		let currentText = span.innerText
 
-		if (number === false) {
+		if (beforeEdit(currentText)) {
 			dispatch('edit', currentText)
-			return
-		}
 
-		if (isNumber(currentText)) {
-			dispatch('edit', parseInt(currentText))
-			text = currentText //? Forces svelte to rerender even if the number is the same
+			span.innerText = currentText //? Force update
 			return
 		}
 
 		span.innerText = previousText
 	}
-
-	export let text
 
 	afterUpdate(() => {
 		//? I have to use innerText to set values since
@@ -34,10 +23,13 @@
 		span.innerText = text
 	})
 
+	export let text
 	export let style = ""
-	export let disabled = false
 
-	export let number = false
+	export let disabled = false
+	export let beforeEdit: (
+		currentText: string
+	) => boolean = () => true
 
 	let span: HTMLSpanElement
 </script>

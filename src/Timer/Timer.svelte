@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from './ControlButton.svelte'
 	import Clock from './Clock.svelte'
-	import Editable from '../Editable.svelte'
+	import Editable from '../Common/Editable/Editable.svelte'
 
 	import { controlTimer, decrementTimer, editTimerLength, editTimerTitle, state } from '../State/StateStore';
 	import { onMount } from 'svelte';

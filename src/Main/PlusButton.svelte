@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import Plus from './svgs/Plus.svelte';
+	import Plus from '../Svg/Plus.svelte';
 
 	const dispatch = createEventDispatcher()
 </script>

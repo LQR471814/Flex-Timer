@@ -1,10 +1,12 @@
 <script lang="ts">
-	import Menu from './Menu.svelte';
-	import Gear from './svgs/Gear.svelte';
-	import Import from './svgs/Import.svelte'
-	import Export from './svgs/Export.svelte'
+	import Menu from '../Common/Menu.svelte';
+	import Gear from '../Svg/Gear.svelte';
+
+	import Import from '../Svg/Import.svelte'
+	import Export from '../Svg/Export.svelte'
 
 	let showMenu = -1
+	let currentTimeout
 </script>
 
 <div class="config-root">
@@ -31,17 +33,22 @@
 		on:click={() => {
 			showMenu *= -1
 
-			if (showMenu > 0)
-			setTimeout(() => {
-				if (showMenu > 0)
-				showMenu = -1
-			}, 6000)
+			if (showMenu > 0) {
+				if (currentTimeout)
+					clearTimeout(currentTimeout)
+
+				currentTimeout = setTimeout(() => {
+					if (showMenu > 0)
+					showMenu = -1
+				}, 6000)
+			}
+
 		}}
 	>
 		<Gear />
 	</div>
 
-	<input>
+	<input type="file">
 </div>
 
 <style>

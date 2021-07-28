@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { removeTimer, state } from './State/StateStore';
-	import Trash from './svgs/TrashCan.svelte'
+	import { removeTimer, state } from '../State/StateStore';
+	import Trash from '../Svg/TrashCan.svelte'
 
 	export let id: string = ""
 </script>
