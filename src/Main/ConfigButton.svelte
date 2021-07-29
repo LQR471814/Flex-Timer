@@ -1,12 +1,19 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
+	import { exportState, state } from '../State/StateStore';
+	import { defaultState } from '../State/Defaults';
+
 	import Menu from '../Common/Menu.svelte';
 	import Gear from '../Svg/Gear.svelte';
 
 	import Import from '../Svg/Import.svelte'
 	import Export from '../Svg/Export.svelte'
+	import TrashCan from '../Svg/TrashCan.svelte';
 
 	let showMenu = -1
 	let currentTimeout
+
+	const { upload, download } = getContext('FileActions')
 </script>
 
 <div class="config-root">
@@ -15,14 +22,30 @@
 			{
 				icon: Import,
 				text: 'Import config',
-				callback: () => {
-
-				}
+				callback: () => upload()
+					.then(val => val.text()
+						.then(val => {
+							const applyState = JSON.parse(val)
+							if (applyState['type'] === 'state') {
+								delete applyState['type']
+								state.set(applyState)
+							}
+						})
+					)
 			},
 			{
 				icon: Export,
 				text: 'Export config',
+				callback: () => download(
+					exportState(),
+					"config.json",
+				)
+			},
+			{
+				icon: TrashCan,
+				text: 'Clear config',
 				callback: () => {
+					state.set(defaultState())
 				}
 			}
 		]} />
@@ -45,7 +68,7 @@
 
 		}}
 	>
-		<Gear />
+		<Gear fill="var(--card-background)" />
 	</div>
 
 	<input type="file">

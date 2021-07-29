@@ -2,22 +2,40 @@ import { writable } from "svelte/store"
 import { defaultState, defaultTimer, generateID } from './Defaults'
 
 const storedTheme = localStorage.getItem('state')
+
 export const state = writable<State>(
 	storedTheme ?
 		JSON.parse(storedTheme) :
 		defaultState()
 )
-state.subscribe(val => {
-	localStorage.setItem('state', JSON.stringify(val))
-})
 
 let defaultTimerNumber = 0
+let currentStateAsJSON
+
+state.subscribe(val => {
+	currentStateAsJSON = toJSON(val)
+	localStorage.setItem('state', currentStateAsJSON)
+})
+
+function toJSON(state: State) {
+	return JSON.stringify({
+		...state,
+		type: "state"
+	})
+}
+
+export function exportState() {
+	return new Blob(
+		[currentStateAsJSON],
+		{ type: 'text/json' }
+	)
+
+}
 
 export function addDefaultTimer(val: State) {
 	defaultTimerNumber++
 
 	const newState = { ...val }
-
 	newState.timers[
 		generateID(val, 'Timer')
 	] = defaultTimer(defaultTimerNumber)
@@ -27,14 +45,12 @@ export function addDefaultTimer(val: State) {
 
 export function editTimerLength(val: State, timerID: string, length: number) {
 	const newState = { ...val }
-
 	const timer = newState.timers[timerID]
 
 	if (timer.currentTime === timer.length)
 		timer.currentTime = length
 
 	timer.length = length
-
 	return newState
 }
 
@@ -59,8 +75,8 @@ export function decrementTimer(val: State, timerID: string) {
 		timer.currentTime = timer.length
 		return newState
 	}
-	timer.currentTime--
 
+	timer.currentTime--
 	return newState
 }
 

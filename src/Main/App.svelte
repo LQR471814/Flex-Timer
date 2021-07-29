@@ -6,6 +6,7 @@
 
 	import { addDefaultTimer, state } from '../State/StateStore'
 	import ConfigButton from './ConfigButton.svelte';
+	import FileContext from './FileContext.svelte';
 
 	let timers
 	state.subscribe(val => {
@@ -14,25 +15,27 @@
 </script>
 
 <main>
-	<div class="timer-list-container">
-		{#each Object.keys(timers) as timer}
-			<div class="timer-margin" transition:fly={{x: -100, y: 0}}>
-				<Timer
-					id={timer}
-					name={timers[timer].name}
-					active={timers[timer].active}
-					currentTime={timers[timer].currentTime}
-				/>
-				<Close id={timer} />
-			</div>
-		{/each}
+	<FileContext>
+		<div class="timer-list-container">
+			{#each Object.keys(timers) as timer}
+				<div class="timer-margin" transition:fly={{x: -100, y: 0}}>
+					<Timer
+						id={timer}
+						name={timers[timer].name}
+						active={timers[timer].active}
+						currentTime={timers[timer].currentTime}
+					/>
+					<Close id={timer} />
+				</div>
+			{/each}
 
-		<PlusButton on:click={() => {
-			state.update(addDefaultTimer)
-		}} />
+			<PlusButton on:click={() => {
+				state.update(addDefaultTimer)
+			}} />
 
-		<ConfigButton />
-	</div>
+			<ConfigButton />
+		</div>
+	</FileContext>
 </main>
 
 <style>

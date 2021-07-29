@@ -10,11 +10,15 @@
 	export let items: Item[] = []
 </script>
 
-<div class="menu-root" transition:fly={{x: 30}}>
+<div class="menu-root" transition:fly={{x: 20}}>
 	{#each items as item}
-		<div class="menu-item">
+		<div
+			class="menu-item"
+			on:click={() => {
+				item.callback()
+			}}>
 			<div class="item-svg">
-				<svelte:component this={item.icon} />
+				<svelte:component this={item.icon} fill="var(--config-color)" />
 			</div>
 
 			<span>{item.text}</span>
