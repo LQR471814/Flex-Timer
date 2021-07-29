@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { setContext } from 'svelte'
 
+	export let limitTo = ""
+
 	let uploader
 	let downloader
 
@@ -25,7 +27,6 @@
 <slot></slot>
 
 <a
-	style="display: none"
 	href="This href is here to stop vscode from complaining"
 	bind:this={downloader}
 >
@@ -34,11 +35,16 @@
 
 <input
 	type="file"
-	accept="application/JSON"
-	style="display: none"
+	accept={limitTo}
 	on:change={() => {
 		currentFileResolve(uploader.files[0])
 		uploader.value = null //? Reset input
 	}}
 	bind:this={uploader}
 >
+
+<style>
+	a, input {
+		display: none;
+	}
+</style>

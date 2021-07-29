@@ -15,7 +15,7 @@
 </script>
 
 <main>
-	<FileContext>
+	<FileContext limitTo="application/JSON">
 		<div class="timer-list-container">
 			{#each Object.keys(timers) as timer}
 				<div class="timer-margin" transition:fly={{x: -100, y: 0}}>

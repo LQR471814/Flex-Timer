@@ -17,9 +17,9 @@ state.subscribe(val => {
 	localStorage.setItem('state', currentStateAsJSON)
 })
 
-function toJSON(state: State) {
+function toJSON(val: State) {
 	return JSON.stringify({
-		...state,
+		...val,
 		type: "state"
 	})
 }
@@ -29,7 +29,17 @@ export function exportState() {
 		[currentStateAsJSON],
 		{ type: 'text/json' }
 	)
+}
 
+export function refreshTimers(val: State) {
+	const newState = { ...val }
+
+	for (const timer of Object.values(newState.timers)) {
+		timer.currentTime = timer.length
+		timer.active = -1
+	}
+
+	return newState
 }
 
 export function addDefaultTimer(val: State) {

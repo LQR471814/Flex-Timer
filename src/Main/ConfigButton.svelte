@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getContext } from 'svelte';
-	import { exportState, state } from '../State/StateStore';
+	import { exportState, refreshTimers, state } from '../State/StateStore';
 	import { defaultState } from '../State/Defaults';
 
 	import Menu from '../Common/Menu.svelte';
@@ -9,6 +9,7 @@
 	import Import from '../Svg/Import.svelte'
 	import Export from '../Svg/Export.svelte'
 	import TrashCan from '../Svg/TrashCan.svelte';
+	import Refresh from '../Svg/Refresh.svelte';
 
 	let showMenu = -1
 	let currentTimeout
@@ -51,34 +52,39 @@
 		]} />
 	{/if}
 
-	<div
-		class="config-button"
-		on:click={() => {
-			showMenu *= -1
+	<div class="config-btns-container">
+		<div
+			class="config-button"
+			on:click={() => {
+				showMenu *= -1
 
-			if (showMenu > 0) {
-				if (currentTimeout)
-					clearTimeout(currentTimeout)
+				if (showMenu > 0) {
+					if (currentTimeout)
+						clearTimeout(currentTimeout)
 
-				currentTimeout = setTimeout(() => {
-					if (showMenu > 0)
-					showMenu = -1
-				}, 6000)
-			}
+					currentTimeout = setTimeout(() => {
+						if (showMenu > 0)
+						showMenu = -1
+					}, 6000)
+				}
 
-		}}
-	>
-		<Gear fill="var(--card-background)" />
+			}}
+		>
+			<Gear fill="var(--card-background)" />
+		</div>
+
+		<div
+			class="config-button refresh-button"
+			on:click={() => {
+				state.update(refreshTimers)
+			}}
+		>
+			<Refresh fill="var(--card-background)" />
+		</div>
 	</div>
-
-	<input type="file">
 </div>
 
 <style>
-	input {
-		display: none
-	}
-
 	.config-root {
 		display: flex;
 		align-items: center;
@@ -90,10 +96,17 @@
 		bottom: 0;
 	}
 
-	.config-button {
+	.config-btns-container {
+		display: flex;
+		flex-direction: column;
+
+		align-items: center;
+
 		margin: 40px;
 		margin-left: 15px;
+	}
 
+	.config-button {
 		padding: 12px;
 
 		height: 40px;
@@ -113,5 +126,12 @@
 	.config-button:active {
 		background-color: var(--button-active-background);
 		border: var(--button-active-border);
+	}
+
+	.refresh-button {
+		height: 20px;
+		width: 20px;
+
+		margin-top: 8px;
 	}
 </style>
