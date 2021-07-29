@@ -8,6 +8,8 @@
 	import ConfigButton from './ConfigButton.svelte';
 	import FileContext from './FileContext.svelte';
 
+	Notification.requestPermission()
+
 	let timers
 	state.subscribe(val => {
 		timers = val.timers

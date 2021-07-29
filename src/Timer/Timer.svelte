@@ -13,8 +13,9 @@
 	export let currentTime: number
 
 	const clock = setInterval(() => {
-		if (active > 0)
-		state.update(state => decrementTimer(state, id))
+		if (active > 0) {
+			state.update(state => decrementTimer(state, id))
+		}
 	}, 1000)
 
 	onMount(() => () => clearInterval(clock))

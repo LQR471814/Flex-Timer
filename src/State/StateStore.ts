@@ -81,6 +81,8 @@ export function decrementTimer(val: State, timerID: string) {
 	const timer = newState.timers[timerID]
 
 	if (timer.currentTime === 0) {
+		new Notification(timer.name, { body: "Done!" })
+
 		timer.active = -1
 		timer.currentTime = timer.length
 		return newState
