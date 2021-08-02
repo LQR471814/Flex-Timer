@@ -3,22 +3,33 @@
 	import Clock from './Clock.svelte'
 	import Editable from '../Common/Editable/Editable.svelte'
 
+	import TickerWorker from 'web-worker:./ticker'
 	import { controlTimer, decrementTimer, editTimerLength, editTimerTitle, state } from '../State/StateStore';
 	import { onMount } from 'svelte';
 
-	export let id: string
+	const ticker = new TickerWorker()
 
-	export let name: string
-	export let active: number
-	export let currentTime: number
+	ticker.addEventListener("message", (e) => {
+		const msg = e.data
 
-	const clock = setInterval(() => {
-		if (active > 0) {
+		if (msg.type === "update") {
 			state.update(state => decrementTimer(state, id))
 		}
-	}, 1000)
+	})
 
-	onMount(() => () => clearInterval(clock))
+	export let id: string
+	export let name: string
+	export let currentTime: number
+
+	export let active: number
+	$: {
+		ticker.postMessage({ type: "active", active: active > 0 })
+	}
+
+	onMount(() => {
+		ticker.postMessage({ type: "start" })
+		return () => ticker.postMessage({ type: "stop" })
+	})
 </script>
 
 <div>
